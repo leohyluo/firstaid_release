@@ -64,5 +64,6 @@ public class AidFilesController {
 		if(StringUtils.isEmpty(id)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
 		}
+		return null;
 	}
 }
