@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("查询急救档案实体")
-public class SearchAidFilesParam {
+public class SearchAidFilesParam extends PageParam {
 
 	@ApiModelProperty("记录id")
 	private String id;
@@ -24,11 +24,11 @@ public class SearchAidFilesParam {
 	@ApiModelProperty("desc,asc")
 	private String order;
 	
-	@ApiModelProperty("页数")
+	/*@ApiModelProperty("页数")
 	private int page;
 	
 	@ApiModelProperty("每页条数")
-	private int rows;
+	private int rows;*/
 
 	public String getType() {
 		return type;
@@ -70,7 +70,7 @@ public class SearchAidFilesParam {
 		this.order = order;
 	}
 
-	public int getPage() {
+	/*public int getPage() {
 		return page;
 	}
 
@@ -84,7 +84,7 @@ public class SearchAidFilesParam {
 
 	public void setRows(int rows) {
 		this.rows = rows;
-	}
+	}*/
 
 	public String getSort() {
 		return sort;
