@@ -2,10 +2,13 @@ package com.iebm.aid.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.iebm.aid.common.BaseService;
 import com.iebm.aid.controller.req.SearchAidFilesParam;
 import com.iebm.aid.pojo.AidFiles;
 import com.iebm.aid.pojo.AidRecord;
+import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
 import com.iebm.aid.pojo.vo.PlanVo;
 
@@ -29,4 +32,13 @@ public interface AidRecordService extends BaseService<AidRecord, Long> {
 	 * @return
 	 */
 	List<AidRecordVo> search(SearchAidFilesParam param);
+	
+	/**
+	 * 查询急救记录详情
+	 * @param id
+	 * @return
+	 */
+	AidRecordDetailVo getDetail(String id);
+	
+	Page<AidRecordVo> findByPage(SearchAidFilesParam param);
 }

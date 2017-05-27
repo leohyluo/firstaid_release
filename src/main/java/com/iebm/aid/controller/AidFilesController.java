@@ -1,9 +1,11 @@
 package com.iebm.aid.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iebm.aid.controller.req.SearchAidFilesParam;
 import com.iebm.aid.pojo.AidFiles;
+import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
 import com.iebm.aid.service.AidFilesService;
 import com.iebm.aid.service.AidRecordService;
@@ -43,6 +46,7 @@ public class AidFilesController {
 		if(aidFile.getId() == null || aidFile.getId().longValue() == 0) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
 		}
+		aidFile.setLastupdTime(LocalDateTime.now());
 		aidFilesService.save(aidFile);
 		return WebUtils.buildSuccessResponseMessage();
 	}
@@ -53,17 +57,22 @@ public class AidFilesController {
 	})
 	@PostMapping(value = "/search")
 	public ResponseMessage search(@RequestBody SearchAidFilesParam param) {
-		List<AidRecordVo> list = aidRecordService.search(param);
-		return WebUtils.buildSuccessResponseMessage(list);
+		//List<AidRecordVo> list = aidRecordService.search(param);
+		Page<AidRecordVo> page = aidRecordService.findByPage(param);
+		return WebUtils.buildSuccessResponseMessage(page);
 	}
 	
 	@ApiOperation(value = "查看急救记录详情", notes="查看急救记录详情", produces="application/json")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "token", value = "客户端token", required = true, dataType = "String", paramType = "header")
+	})
 	@PostMapping("/getDetail")
 	public ResponseMessage getDetail(@RequestBody SearchAidFilesParam param) {
 		String id = param.getId();
 		if(StringUtils.isEmpty(id)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
 		}
-		return null;
+		AidRecordDetailVo detailVo = aidRecordService.getDetail(id);
+		return WebUtils.buildSuccessResponseMessage(detailVo);
 	}
 }

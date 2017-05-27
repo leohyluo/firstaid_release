@@ -113,9 +113,11 @@ public class AidFiles extends BaseEntity {
 	@Column(name = "signature")
 	private String signature; //医师签名
 
+	@ApiModelProperty(value="修改时间", hidden=true)
 	@Column(name = "lastupd_time")
 	private LocalDateTime lastupdTime; //修改及操作时间
 
+	@ApiModelProperty(value="创建时间", hidden=true)
 	@Column(name = "create_time")
 	private LocalDateTime createTime; //用于创建的时间毫秒数private String 
 	

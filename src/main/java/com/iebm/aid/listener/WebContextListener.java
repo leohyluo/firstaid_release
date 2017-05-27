@@ -3,6 +3,7 @@ package com.iebm.aid.listener;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.EntityManager;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -17,6 +18,7 @@ import com.iebm.aid.pojo.KqplanLink;
 import com.iebm.aid.repository.KeyQRepository;
 import com.iebm.aid.repository.KeyQUseRepository;
 import com.iebm.aid.repository.KqplanLinkRepository;
+import com.iebm.aid.utils.JpaHelper;
 
 
 @WebListener
@@ -27,7 +29,9 @@ public class WebContextListener implements ServletContextListener {
 	@Resource
 	private KeyQUseRepository keyQUseRepository;
 	@Resource
-	private KqplanLinkRepository kqplanLinkRepository; 
+	private KqplanLinkRepository kqplanLinkRepository;
+	@Resource
+	private EntityManager entityManager;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -40,11 +44,16 @@ public class WebContextListener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		logger.info("webContextListener contextInitialized starting...");
+		initEntityManager();
 		DataPool.init();
 		loadKeyQ();
 		loadKeyqUse();
 		loadKqplanLink();
 		logger.info("webContextListener contextInitialized completed");
+	}
+	
+	private void initEntityManager() {
+		JpaHelper.setEntityManager(entityManager);
 	}
 	
 	private void loadKeyQ() {

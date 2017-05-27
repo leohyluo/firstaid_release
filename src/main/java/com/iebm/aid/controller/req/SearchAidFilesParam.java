@@ -17,6 +17,18 @@ public class SearchAidFilesParam {
 	
 	@ApiModelProperty("当type为4时必填,yyyy-MM-dd")
 	private String endTime;
+	
+	@ApiModelProperty("要排序的字段")
+	private String sort;
+	
+	@ApiModelProperty("desc,asc")
+	private String order;
+	
+	@ApiModelProperty("页数")
+	private int page;
+	
+	@ApiModelProperty("每页条数")
+	private int rows;
 
 	public String getType() {
 		return type;
@@ -48,6 +60,38 @@ public class SearchAidFilesParam {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getOrder() {
+		return order;
+	}
+
+	public void setOrder(String order) {
+		this.order = order;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 	
 }

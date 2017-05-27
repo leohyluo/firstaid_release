@@ -19,7 +19,7 @@ import com.iebm.aid.utils.StringUtils;
 public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 
 	List<AidRecord> findByCreateTimeBetween(LocalDateTime startDate, LocalDateTime endDate);
-	
+		
 	@SuppressWarnings("unchecked")
 	default AidRecordDetailVo findDetailById(String id) {
 		StringBuilder sb = new StringBuilder();
@@ -66,7 +66,7 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 		sb.append(" AND a.id = :id ");
 		
 		String sql = sb.toString();
-		List<Object[]> objList = JpaHelper.getEntityManager().createNamedQuery(sql).setParameter("id", id).getResultList();
+		List<Object[]> objList = JpaHelper.getEntityManager().createNativeQuery(sql).setParameter("id", id).getResultList();
 		if(CollectionUtils.isNotEmpty(objList)) {
 			Object[] arr = objList.get(0);
 			PatientInfo patientInfo = new PatientInfo();
