@@ -170,7 +170,8 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 			return new AidRecordVo(e);
 		};
 		Page<AidRecordVo> page = repository.findAll(spec, pageable).map(converter);
-		//Page<AidRecord> page = repository.findAll(spec, pageable);
+		List<AidRecordVo> list = page.getContent();
+		System.out.println("list size =========="+list.size());
 		return page;
 	}
 	

@@ -38,7 +38,7 @@ public class Encrypt  implements FactoryBean<Object> {
 
 	public Properties getProperties() {
 		return properties;
-	}
+	} 
 
 	
 
