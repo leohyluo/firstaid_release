@@ -1,16 +1,22 @@
 package com.iebm.aid.repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
 import com.iebm.aid.common.BaseRepository;
+import com.iebm.aid.common.DataPool;
 import com.iebm.aid.pojo.AidRecord;
+import com.iebm.aid.pojo.Plan;
 import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.CallRecord;
 import com.iebm.aid.pojo.vo.EmengencyRecord;
 import com.iebm.aid.pojo.vo.PatientInfo;
+import com.iebm.aid.pojo.vo.PlanVo;
 import com.iebm.aid.utils.CollectionUtils;
 import com.iebm.aid.utils.JpaHelper;
 import com.iebm.aid.utils.StringUtils;
@@ -57,7 +63,8 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 		sb.append(" a.aid_address AS c_aidAddress, ");//28
 		sb.append(" a.aid_mobile AS c_aidMobile, ");//29
 		sb.append(" a.what_happen AS c_whatHappen, ");//30
-		sb.append(" a.cure_process AS c_cureProcess ");//31
+		sb.append(" a.cure_process AS c_cureProcess, ");//31
+		sb.append(" a.plan_ids AS c_planIds ");//32
 		sb.append(" FROM ");
 		sb.append(" table_record a, ");
 		sb.append(" table_aid_files b ");
@@ -106,6 +113,16 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 			callRecord.setAidMobile(StringUtils.toString(arr[29]));
 			callRecord.setWhatHappen(StringUtils.toString(arr[30]));
 			callRecord.setCureProcess(StringUtils.toString(arr[31]));
+			String planIds = StringUtils.toString(arr[32]);
+			if(StringUtils.isNotEmpty(planIds)) {
+				List<Plan> planList = DataPool.get(Plan.class);
+				List<String> idList = Arrays.asList(planIds.split(","));
+				List<Plan> planResult = new ArrayList<>();
+				idList.forEach(e->{
+					planList.stream().filter(e2->e2.getPlanId().equals(e)).findFirst().ifPresent(r->planResult.add(r));
+				});
+				callRecord.setPlans(planResult.stream().map(PlanVo::new).collect(Collectors.toList()));
+			}
 			
 			AidRecordDetailVo vo = new AidRecordDetailVo(patientInfo, emengencyRecord, callRecord);
 			return vo;

@@ -4,8 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import org.springframework.context.annotation.Bean;
-
 @WebListener
 public class SpringContextListener implements ServletContextListener {
 

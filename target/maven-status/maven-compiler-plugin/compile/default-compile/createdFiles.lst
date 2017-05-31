@@ -1,4 +1,5 @@
 com\iebm\aid\controller\EventRecordController.class
+com\iebm\aid\controller\req\PageParam.class
 com\iebm\aid\pojo\OperateSpec.class
 com\iebm\aid\service\KeyQService.class
 com\iebm\aid\repository\SubStationRepository.class
@@ -35,8 +36,10 @@ com\iebm\aid\utils\CipherUtils.class
 com\iebm\aid\repository\KeyQRepository.class
 com\iebm\aid\pojo\Mpds.class
 com\iebm\aid\service\AidService.class
+com\iebm\aid\utils\JpaHelper.class
 com\iebm\aid\repository\GradeInfoRepository.class
 com\iebm\aid\service\SysDiseaseService.class
+com\iebm\aid\pojo\vo\EmengencyRecord.class
 com\iebm\aid\pojo\KeyQUse.class
 com\iebm\aid\controller\req\LoginParam.class
 com\iebm\aid\service\PlanService.class
@@ -70,6 +73,7 @@ com\iebm\aid\service\impl\OperateSpecServiceImpl.class
 com\iebm\aid\utils\ObjectUtils.class
 com\iebm\aid\controller\req\KeyQParam.class
 com\iebm\aid\pojo\SpecDisease.class
+com\iebm\aid\pojo\vo\PatientInfo.class
 com\iebm\aid\service\impl\MainSymptomServiceImpl.class
 com\iebm\aid\controller\UserController.class
 com\iebm\aid\pojo\KeyQ.class
@@ -77,6 +81,7 @@ com\iebm\aid\controller\req\SpecDiseaseParam.class
 com\iebm\aid\pojo\SysDisease.class
 com\iebm\aid\controller\req\SearchGuideParam.class
 com\iebm\aid\controller\req\SmartPlanParam.class
+com\iebm\aid\service\impl\AidRecordServiceImpl$1.class
 com\iebm\aid\service\EventPatientService.class
 com\iebm\aid\pojo\vo\PlanVo.class
 com\iebm\aid\common\BaseEntity.class
@@ -124,6 +129,7 @@ com\iebm\aid\service\impl\PlanServiceImpl.class
 com\iebm\aid\service\impl\UserSubstationServiceImpl.class
 com\iebm\aid\pojo\AidRecord.class
 com\iebm\aid\service\MainSymptomService.class
+com\iebm\aid\pojo\vo\AidRecordDetailVo.class
 com\iebm\aid\utils\CollectionUtils.class
 com\iebm\aid\pojo\MainKeyQ.class
 com\iebm\aid\pojo\Plan.class
@@ -140,6 +146,7 @@ com\iebm\aid\config\Swagger2Configuration.class
 com\iebm\aid\service\impl\SysDiseaseServiceImpl.class
 com\iebm\aid\service\impl\MpdsServiceImpl.class
 com\iebm\aid\utils\RandomUtils.class
+com\iebm\aid\pojo\vo\CallRecord.class
 com\iebm\aid\controller\PlanController.class
 com\iebm\aid\repository\CacheKeyQRepository.class
 com\iebm\aid\controller\SpecDiseaseController.class

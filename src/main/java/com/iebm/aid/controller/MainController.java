@@ -32,6 +32,7 @@ import com.iebm.aid.service.MainSymptomService;
 import com.iebm.aid.service.MpdsService;
 import com.iebm.aid.service.PlanService;
 import com.iebm.aid.utils.CollectionUtils;
+import com.iebm.aid.utils.JsonUtils;
 import com.iebm.aid.utils.StringUtils;
 import com.iebm.aid.web.ResponseMessage;
 import com.iebm.aid.web.ResponseStatus;
@@ -94,6 +95,7 @@ public class MainController {
 	})
 	@PostMapping(value = "/searchQues")
 	public ResponseMessageVo2 searchQues(@RequestBody KeyQParam param) {
+		logger.info("searchQues params is :" + JsonUtils.toJsonString(param));
 		String type = "1";
 		List<KeyQVo> keyqList = keyQService.searchKeyQ(param);
 		List<PlanVo> planList = null;

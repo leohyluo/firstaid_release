@@ -15,9 +15,11 @@ import com.iebm.aid.common.DataPool;
 import com.iebm.aid.pojo.KeyQ;
 import com.iebm.aid.pojo.KeyQUse;
 import com.iebm.aid.pojo.KqplanLink;
+import com.iebm.aid.pojo.Plan;
 import com.iebm.aid.repository.KeyQRepository;
 import com.iebm.aid.repository.KeyQUseRepository;
 import com.iebm.aid.repository.KqplanLinkRepository;
+import com.iebm.aid.repository.PlanRepository;
 import com.iebm.aid.utils.JpaHelper;
 
 
@@ -30,6 +32,8 @@ public class WebContextListener implements ServletContextListener {
 	private KeyQUseRepository keyQUseRepository;
 	@Resource
 	private KqplanLinkRepository kqplanLinkRepository;
+	@Resource
+	private PlanRepository planRepository;
 	@Resource
 	private EntityManager entityManager;
 	
@@ -49,6 +53,7 @@ public class WebContextListener implements ServletContextListener {
 		loadKeyQ();
 		loadKeyqUse();
 		loadKqplanLink();
+		loadPlan();
 		logger.info("webContextListener contextInitialized completed");
 	}
 	
@@ -69,5 +74,10 @@ public class WebContextListener implements ServletContextListener {
 	private void loadKqplanLink() {
 		List<KqplanLink> kqplanLinkList = kqplanLinkRepository.findAll();
 		DataPool.put(kqplanLinkList);
+	}
+	
+	private void loadPlan() {
+		List<Plan> planList = planRepository.findAll();
+		DataPool.put(planList);
 	}
 }

@@ -1,7 +1,5 @@
 package com.iebm.aid.pojo;
 
-import java.util.StringJoiner;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.iebm.aid.common.BaseEntity;
-import com.iebm.aid.controller.req.BasicInfoReq;
-import com.iebm.aid.utils.StringUtils;
 
 @Entity
 @Table(name = "table_cachekeyq")

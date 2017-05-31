@@ -1,10 +1,15 @@
 package com.iebm.aid.pojo.vo;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("急救档案-呼叫记录")
 public class CallRecord {
+	
+	@ApiModelProperty("预案")
+	private List<PlanVo> plans;
 
 	@ApiModelProperty("主诉id")
 	private String mainSymptom;
@@ -157,6 +162,14 @@ public class CallRecord {
 
 	public void setCureProcess(String cureProcess) {
 		this.cureProcess = cureProcess;
+	}
+
+	public List<PlanVo> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(List<PlanVo> plans) {
+		this.plans = plans;
 	}
 	
 	

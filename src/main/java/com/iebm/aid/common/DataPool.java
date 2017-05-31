@@ -5,22 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.iebm.aid.controller.req.BasicInfoReq;
-import com.iebm.aid.pojo.vo.PlanVo;
 import com.iebm.aid.utils.CollectionUtils;
 
 public class DataPool {
 	
 	private static DataPool instance;
-	//数据库数据缓存池
+	//对象集合数据缓存池
 	private static Map<Class<?>, List<?>> map;
-	//患者信息缓存池
-	private static Map<String, BasicInfoReq> basicInfoMap;
+	//单个对象数据缓存池
 	private static Map<String, Object> objectMap;
 
 	private DataPool() {
 		map = new ConcurrentHashMap<>();
-		basicInfoMap = new ConcurrentHashMap<>();
 		objectMap = new ConcurrentHashMap<>();
 	}
 	
@@ -59,12 +55,4 @@ public class DataPool {
 		}		
 		return t;
 	}
-	
-	/*public static void putBasicInfo(String serverId, BasicInfoReq basicInfo) {
-		basicInfoMap.put(serverId, basicInfo);
-	}
-	
-	public static BasicInfoReq getBasicInfo(String serverId) {
-		return basicInfoMap.get(serverId);
-	}*/
 }
