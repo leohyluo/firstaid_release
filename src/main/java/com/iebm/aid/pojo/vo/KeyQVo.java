@@ -4,13 +4,29 @@ import org.springframework.beans.BeanUtils;
 
 import com.iebm.aid.pojo.KeyQ;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("问题答案实体")
 public class KeyQVo {
 
+	@ApiModelProperty("问题id")
 	private Integer kqID;
+	
+	@ApiModelProperty("问题内容")
 	private String kqTitle;
+	
+	@ApiModelProperty("答案内容")
 	private String answer;
+	
+	@ApiModelProperty("答案id")
 	private String answerId;
+	
+	@ApiModelProperty("问题类型,1表示需添加备注的问题")
 	private String kqType;
+	
+	@ApiModelProperty("引申问题id")
+	private String forwardId;
 	
 	public KeyQVo(KeyQ obj) {
 		BeanUtils.copyProperties(obj, this);
@@ -48,6 +64,14 @@ public class KeyQVo {
 
 	public void setKqType(String kqType) {
 		this.kqType = kqType;
+	}
+
+	public String getForwardId() {
+		return forwardId;
+	}
+
+	public void setForwardId(String forwardId) {
+		this.forwardId = forwardId;
 	}
 	
 }

@@ -4,10 +4,19 @@ import java.util.List;
 
 import com.iebm.aid.web.ResponseStatus;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel("第一个问题答案实体")
 public class ResponseMessageVo {
 
+	@ApiModelProperty("状态码")
 	private int code;
+	
+	@ApiModelProperty("数据")
 	private FirstQuesPojo data;
+	
+	@ApiModelProperty("备注")
 	private String msg;
 	
 	public ResponseMessageVo(String serverId, List<KeyQVo> keyqList) {

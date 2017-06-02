@@ -195,7 +195,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 			int kqId = kqIdList.get(i);
 			String answerId = answerIdList.get(i);
 			
-			String idx = i + "";
+			String idx = (i + 1) + "";
 			Optional<KeyQ> optional = keyqList.stream().filter(e->e.getKqID()==kqId).filter(e->e.getAnswerId().equals(answerId)).findFirst();
 			optional.ifPresent(e->{
 				String questionText = e.getKqTitle();

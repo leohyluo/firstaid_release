@@ -19,6 +19,7 @@ com\iebm\aid\controller\AidFilesController.class
 com\iebm\aid\pojo\KqplanLink.class
 com\iebm\aid\controller\GradeInfoController.class
 com\iebm\aid\service\impl\DrugServiceImpl.class
+com\iebm\aid\filter\CorsFilter.class
 com\iebm\aid\service\impl\GradeInfoServiceImpl.class
 com\iebm\aid\exception\ExceptionCode.class
 com\iebm\aid\common\BaseService.class
@@ -72,6 +73,7 @@ com\iebm\aid\pojo\vo\FirstQuesPojo.class
 com\iebm\aid\service\impl\OperateSpecServiceImpl.class
 com\iebm\aid\utils\ObjectUtils.class
 com\iebm\aid\controller\req\KeyQParam.class
+com\iebm\aid\controller\req\third\LoginParam.class
 com\iebm\aid\pojo\SpecDisease.class
 com\iebm\aid\pojo\vo\PatientInfo.class
 com\iebm\aid\service\impl\MainSymptomServiceImpl.class
@@ -119,6 +121,7 @@ com\iebm\aid\controller\req\BaseParam.class
 com\iebm\aid\filter\DruidWebStatFilter.class
 com\iebm\aid\pojo\vo\QuesOrPlan.class
 com\iebm\aid\service\impl\EventMessageServiceImpl.class
+com\iebm\aid\utils\VerifyUtils.class
 com\iebm\aid\service\MpdsService.class
 com\iebm\aid\pojo\GradeInfo.class
 com\iebm\aid\common\BaseRepository.class

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iebm.aid.controller.req.EventParam;
 import com.iebm.aid.controller.req.LoginParam;
 import com.iebm.aid.controller.req.ModifyPwdParam;
 import com.iebm.aid.pojo.User;
@@ -17,6 +18,7 @@ import com.iebm.aid.service.EventRecordService;
 import com.iebm.aid.service.UserService;
 import com.iebm.aid.service.UserTokenService;
 import com.iebm.aid.utils.StringUtils;
+import com.iebm.aid.utils.VerifyUtils;
 import com.iebm.aid.web.ResponseMessage;
 import com.iebm.aid.web.ResponseStatus;
 import com.iebm.aid.web.WebUtils;
@@ -82,5 +84,27 @@ public class UserController {
 		user.setPassword(newPassword);
 		userService.save(user);
 		return WebUtils.buildSuccessResponseMessage();
+	}
+	
+	@ApiOperation("120急救中心初始化接口")
+	public ResponseMessage thirdLogin(@RequestBody com.iebm.aid.controller.req.third.LoginParam param) {
+		EventParam eventParam = param.getEventInfo();
+		String hospitalCode = param.getHospitalCode();
+		String userName = param.getUserName();
+		String eventNo = eventParam.getEventNo();
+		String seatNo = eventParam.getSeatNo();
+		String dispatcher = eventParam.getDispatcher();
+		String[] requireParams = {hospitalCode, userName, eventNo, seatNo, dispatcher};
+		
+		if(VerifyUtils.isEmpty(requireParams)) {
+			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING); 
+		}
+		User user = userService.find(userName, hospitalCode);
+		if(user == null) {
+			return WebUtils.buildResponseMessage(ResponseStatus.USER_NOT_FOUND);
+		}
+		UserToken token = userTokenService.create(user);		
+		ResponseMessage responseMessage = WebUtils.buildSuccessResponseMessage(token);
+		return responseMessage;
 	}
 }

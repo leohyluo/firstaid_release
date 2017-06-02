@@ -6,8 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("分页参数")
 public class PageParam {
 
-	@ApiModelProperty("页码,第一页为1")
-	protected int page = 1;
+	@ApiModelProperty("页码,第一页为0")
+	protected int page = 0;
 	
 	@ApiModelProperty("每页显示数量,默认10")
 	protected int rows = 10;
@@ -19,7 +19,6 @@ public class PageParam {
 	protected String order;
 	
 	public int getPage() {
-		page--;
 		return page;
 	}
 	public void setPage(int page) {
