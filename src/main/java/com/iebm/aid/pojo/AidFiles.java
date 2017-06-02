@@ -121,6 +121,15 @@ public class AidFiles extends BaseEntity {
 	@Column(name = "create_time")
 	private LocalDateTime createTime; //用于创建的时间毫秒数private String 
 	
+	@ApiModelProperty("患者年龄")
+	private String age;
+	
+	public String getAge() {
+		return age;
+	}
+	public void setAge(String age) {
+		this.age = age;
+	}
 	public Long getId() {
 		return id;
 	}

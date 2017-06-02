@@ -103,6 +103,7 @@ public class UserController {
 		if(user == null) {
 			return WebUtils.buildResponseMessage(ResponseStatus.USER_NOT_FOUND);
 		}
+		eventRecordService.saveEventInfo(user, eventParam, param.getPatientInfo());
 		UserToken token = userTokenService.create(user);		
 		ResponseMessage responseMessage = WebUtils.buildSuccessResponseMessage(token);
 		return responseMessage;

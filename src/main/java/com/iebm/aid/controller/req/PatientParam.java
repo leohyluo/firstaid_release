@@ -11,15 +11,20 @@ import io.swagger.annotations.ApiModelProperty;
 public class PatientParam {
 
 	@ApiModelProperty("患者姓名")
-	private String patientName;
+	private String userName;
+	
 	@ApiModelProperty("患者年龄")
 	private int age;
+	
 	@ApiModelProperty("年龄单位")
 	private String ageUnit;
+	
 	@ApiModelProperty("患者性别")
 	private String gender;
+	
 	@ApiModelProperty("事发地点")
 	private String address;
+	
 	@ApiModelProperty("患者联系方式")
 	private String mobile;
 	
@@ -29,11 +34,12 @@ public class PatientParam {
 	public void setAgeUnit(String ageUnit) {
 		this.ageUnit = ageUnit;
 	}
-	public String getPatientName() {
-		return patientName;
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setPatientName(String patientName) {
-		this.patientName = patientName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public int getAge() {
 		return age;
