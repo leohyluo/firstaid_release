@@ -17,6 +17,7 @@ import com.iebm.aid.common.AbstractService;
 import com.iebm.aid.common.BaseRepository;
 import com.iebm.aid.common.DataPool;
 import com.iebm.aid.controller.req.BasicInfoReq;
+import com.iebm.aid.exception.CommonException;
 import com.iebm.aid.pojo.CacheKeyQ;
 import com.iebm.aid.pojo.KeyQ;
 import com.iebm.aid.pojo.KeyQUse;
@@ -67,6 +68,23 @@ public class CacheKeyQServiceImpl extends AbstractService<CacheKeyQ, Long> imple
 			cacheKeyQ = list.get(0);
 		}
 		return cacheKeyQ;
+	}	
+
+	@Override
+	public CacheKeyQ update(String serverId, String allKqIds, String allAnswerIds, String allTexts) throws CommonException {
+		String sub = ",";
+		int kqIdCount = org.springframework.util.StringUtils.countOccurrencesOf(allKqIds, sub);
+		int answerIdCount = org.springframework.util.StringUtils.countOccurrencesOf(allAnswerIds, sub);
+		int textCount = org.springframework.util.StringUtils.countOccurrencesOf(allTexts, sub);
+		if(kqIdCount != answerIdCount || kqIdCount != textCount || answerIdCount != textCount) {
+			throw new CommonException("无效的请求参数[allKqIds,allAnswerIds,allTexts]");
+		}
+		
+		CacheKeyQ cacheKeyq = findByServerId(serverId);
+		cacheKeyq.setProcessKeyQIDs(allKqIds);
+		cacheKeyq.setProcessAnswerIDs(allAnswerIds);
+		cacheKeyq.setProcessAnswerTexts(allTexts);
+		return this.save(cacheKeyq);
 	}
 
 	@Override
@@ -265,6 +283,7 @@ public class CacheKeyQServiceImpl extends AbstractService<CacheKeyQ, Long> imple
 		save(ckq);
 		return allKeyQIds;
 	}
+
 	
 	/*private void saveCacheKeyQ(BasicInfoReq basicInfo, List<KeyQ> allKeyQList) {
 		int[] arr = parseToArray(basicInfo);

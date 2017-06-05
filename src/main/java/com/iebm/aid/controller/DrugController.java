@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iebm.aid.controller.req.SearchDrugParam;
+import com.iebm.aid.controller.req.DrugParam1;
+import com.iebm.aid.controller.req.DrugParam3;
+import com.iebm.aid.controller.req.DrugParam2;
 import com.iebm.aid.pojo.Drug;
 import com.iebm.aid.service.DrugService;
 import com.iebm.aid.web.ResponseMessage;
@@ -60,7 +62,7 @@ public class DrugController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/findByKeyword")
-	public ResponseMessage findByKeyword(@RequestBody SearchDrugParam param) {
+	public ResponseMessage findByKeyword(@RequestBody DrugParam1 param) {
 		String keyword = param.getKeyword();
 		List<String> list = drugService.findByKeyword(keyword);
 		return WebUtils.buildSuccessResponseMessage(list);
@@ -71,7 +73,7 @@ public class DrugController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/findByName")
-	public ResponseMessage findByName(@RequestBody SearchDrugParam param) {
+	public ResponseMessage findByName(@RequestBody DrugParam3 param) {
 		String name = param.getName();
 		List<String> list = drugService.findByType0(name);
 		return WebUtils.buildSuccessResponseMessage(list);
@@ -82,7 +84,7 @@ public class DrugController {
 	})
 	@ApiOperation(value = "查看药品详情", notes="根据药品名称查看药品详细信息", produces="application/json")
 	@PostMapping(value = "/getDetail")
-	public ResponseMessage getDetail(@RequestBody SearchDrugParam param){
+	public ResponseMessage getDetail(@RequestBody DrugParam2 param){
 		String drugName = param.getDrugName();
 		Drug drug = drugService.findByName(drugName);
 		return WebUtils.buildSuccessResponseMessage(drug);

@@ -47,6 +47,8 @@ public class WebContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
+		
+		
 		logger.info("webContextListener contextInitialized starting...");
 		initEntityManager();
 		DataPool.init();

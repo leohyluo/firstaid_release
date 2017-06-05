@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iebm.aid.controller.req.SpecDiseaseParam;
+import com.iebm.aid.controller.req.SpecDiseaseParam3;
+import com.iebm.aid.controller.req.SpecDiseaseParam1;
+import com.iebm.aid.controller.req.SpecDiseaseParam2;
 import com.iebm.aid.pojo.SpecDisease;
 import com.iebm.aid.pojo.SysDisease;
 import com.iebm.aid.pojo.vo.SpecDiseaseVo;
@@ -67,7 +69,7 @@ public class SpecDiseaseController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/findById")
-	public ResponseMessage findById(@RequestBody SpecDiseaseParam param) {
+	public ResponseMessage findById(@RequestBody SpecDiseaseParam1 param) {
 		String sysId = param.getSysId();
 		if(StringUtils.isEmpty(sysId)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
@@ -81,7 +83,7 @@ public class SpecDiseaseController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/findByKeyword")
-	public ResponseMessage findByKeyword(@RequestBody SpecDiseaseParam param) {
+	public ResponseMessage findByKeyword(@RequestBody SpecDiseaseParam2 param) {
 		String keyword = param.getKeyword();
 		List<SpecDiseaseVo> list = specDiseaseService.findVoByKeyword(keyword);
 		return WebUtils.buildSuccessResponseMessage(list);
@@ -92,7 +94,7 @@ public class SpecDiseaseController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value="/getDetail")
-	public ResponseMessage getDetail(@RequestBody SpecDiseaseParam param) {
+	public ResponseMessage getDetail(@RequestBody SpecDiseaseParam3 param) {
 		String disId = param.getDisId();
 		if(StringUtils.isEmpty(disId)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);

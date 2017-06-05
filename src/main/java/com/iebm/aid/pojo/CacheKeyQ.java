@@ -45,13 +45,17 @@ public class CacheKeyQ extends BaseEntity {
 	@Column(name = "processKeyQIDs")
 	private String processKeyQIDs;
 	
-	//已问过问题的id，用“/”分隔
+	//已问过问题的id，用“,”分隔
 	@Column(name = "allKQForwardIDs")
 	private String allKQForwardIDs;
 	
-	//已问过问题的答案id，用“/”分隔
+	//已问过问题的答案id，用“,”分隔
 	@Column(name = "processAnswerIDs")
 	private String processAnswerIDs;
+	
+	//自己填写的信息，用“,”分隔
+	@Column(name = "processAnswerTexts")
+	private String processAnswerTexts;
 	
 	//请求的时间
 	@Column(name = "dateTime")
@@ -147,6 +151,14 @@ public class CacheKeyQ extends BaseEntity {
 
 	public void setServerId(String serverId) {
 		this.serverId = serverId;
+	}
+
+	public String getProcessAnswerTexts() {
+		return processAnswerTexts;
+	}
+
+	public void setProcessAnswerTexts(String processAnswerTexts) {
+		this.processAnswerTexts = processAnswerTexts;
 	}
 	
 }

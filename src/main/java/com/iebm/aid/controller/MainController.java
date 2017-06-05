@@ -103,8 +103,9 @@ public class MainController {
 		if(CollectionUtils.isEmpty(keyqList)) {
 			type = "2";
 			String serverId = param.getServerId();
+			CacheKeyQ cacheKeyq = cacheKeyQService.update(serverId, param.getAllKqIds(), param.getAllAnswerIds(), param.getAllTexts());
 			planList = planService.queryByServerId(serverId);
-			CacheKeyQ cacheKeyq = cacheKeyQService.findByServerId(serverId);
+			//CacheKeyQ cacheKeyq = cacheKeyQService.findByServerId(serverId);
 			mpds = mpdsService.findMpdsGrade(cacheKeyq);
 			//保存诊断记录
 			aidRecordService.saveAidRecord(serverId, planList);

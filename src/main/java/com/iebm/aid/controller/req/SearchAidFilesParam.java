@@ -6,10 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel("查询急救档案实体")
 public class SearchAidFilesParam extends PageParam {
 
-	@ApiModelProperty("记录id[查看急救记录详情接口必填]")
-	private String id;
-	
-	@ApiModelProperty("1：当天 2:一周 3:一月 4:自定义 5:所有[查看急救档案接口必填]")
+	@ApiModelProperty("1：当天 2:一周 3:一月 4:自定义 5:所有")
 	private String type;
 	
 	@ApiModelProperty("当type为4时必填,yyyy-MM-dd")
@@ -40,14 +37,6 @@ public class SearchAidFilesParam extends PageParam {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getOrder() {

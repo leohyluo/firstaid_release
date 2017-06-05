@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iebm.aid.controller.req.SearchAidFilesParam;
+import com.iebm.aid.controller.req.SearchRecordDetailParam;
 import com.iebm.aid.pojo.AidFiles;
 import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
@@ -56,7 +57,6 @@ public class AidFilesController {
 	})
 	@PostMapping(value = "/search")
 	public ResponseMessage search(@RequestBody SearchAidFilesParam param) {
-		//List<AidRecordVo> list = aidRecordService.search(param);
 		Page<AidRecordVo> page = aidRecordService.findByPage(param);
 		return WebUtils.buildSuccessResponseMessage(page);
 	}
@@ -66,7 +66,7 @@ public class AidFilesController {
 		@ApiImplicitParam(name = "token", value = "客户端token", required = true, dataType = "String", paramType = "header")
 	})
 	@PostMapping("/getDetail")
-	public ResponseMessage getDetail(@RequestBody SearchAidFilesParam param) {
+	public ResponseMessage getDetail(@RequestBody SearchRecordDetailParam param) {
 		String id = param.getId();
 		if(StringUtils.isEmpty(id)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
