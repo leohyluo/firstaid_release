@@ -187,7 +187,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 		List<String> answerIdList = Arrays.asList(processAnswerIds.split(","));
 		List<String> answerTextList = new ArrayList<>();
 		if(StringUtils.isNotEmpty(processAnswerTexts)) {
-			answerTextList = Arrays.asList(processAnswerTexts.split(","));
+			answerTextList = Arrays.asList(processAnswerTexts.split(",", -1));
 		}
 		
 		StringBuilder sb = new StringBuilder();
