@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.iebm.aid.common.AbstractService;
 import com.iebm.aid.common.BaseRepository;
 import com.iebm.aid.common.DataPool;
+import com.iebm.aid.common.GlobalConstants;
 import com.iebm.aid.controller.req.BasicInfoReq;
 import com.iebm.aid.controller.req.SearchAidFilesParam;
 import com.iebm.aid.pojo.AidFiles;
@@ -46,6 +47,7 @@ import com.iebm.aid.service.AidRecordService;
 import com.iebm.aid.service.CacheKeyQService;
 import com.iebm.aid.service.MainSymptomService;
 import com.iebm.aid.utils.CollectionUtils;
+import com.iebm.aid.utils.EBMEnDecrypt;
 import com.iebm.aid.utils.StringUtils;
 
 
@@ -92,6 +94,8 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 			planvoList.stream().map(PlanVo::getPlanId).collect(toList()).stream().forEach(e->joiner.add(e));
 		}
 		String mainSymptomText = mainSymptom.getTitle();
+		mainSymptomText = EBMEnDecrypt.decrypt(mainSymptomText, GlobalConstants.DECRYPT_CHARSET);
+		
 		String cureProcess = parseToProcessText(cacheKeyq.getSympID(), cacheKeyq.getProcessKeyQIDs(),
 				cacheKeyq.getProcessAnswerIDs(), cacheKeyq.getProcessAnswerTexts());
 		AidRecord aidRecord = basicInfo.parseToAidRecord();
@@ -197,9 +201,9 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 			String idx = (i + 1) + "";
 			Optional<KeyQ> optional = keyqList.stream().filter(e->e.getKqID()==kqId).filter(e->e.getAnswerId().equals(answerId)).findFirst();
 			optional.ifPresent(e->{
-				String questionText = e.getKqTitle();
-				String answerText = e.getAnswer();
-				sb.append(idx).append("、").append(questionText).append(":").append(answerText);
+				String questionText = EBMEnDecrypt.decrypt(e.getKqTitle(), GlobalConstants.DECRYPT_CHARSET);
+				String answerText = EBMEnDecrypt.decrypt(e.getAnswer(), GlobalConstants.DECRYPT_CHARSET);
+				sb.append(idx).append("、").append(questionText).append("(").append(answerText).append(")");
 				if(StringUtils.isNotEmpty(maualAnswerText) && !"0".equals(maualAnswerText)) {
 					sb.append("(").append(maualAnswerText).append(")");
 				}

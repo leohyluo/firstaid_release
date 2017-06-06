@@ -79,10 +79,10 @@ public class KeyQServiceImpl extends AbstractService<KeyQ, Long> implements KeyQ
 	public List<KeyQVo> questionAndAnswer(String mainId, Integer curQuesNo, String answerId) {
 		List<KeyQVo> list = new ArrayList<>();
  		if(StringUtils.isEmpty(answerId)) { 			
-			list = Optional.of(repository.findByMainIDAndKqIDOrderByAnswerId(mainId, curQuesNo)).orElseGet(ArrayList::new)
+			list = Optional.ofNullable(repository.findByMainIDAndKqIDOrderByAnswerId(mainId, curQuesNo)).orElseGet(ArrayList::new)
 					.stream().map(KeyQVo::new).collect(Collectors.toList()); 
 		} else {
-			Optional<KeyQ> optionalVal = Optional.of(repository.findByMainIDAndKqIDAndAnswerIdOrderByAnswerId(mainId, curQuesNo, answerId)).orElseGet(ArrayList::new)
+			Optional<KeyQ> optionalVal = Optional.ofNullable(repository.findByMainIDAndKqIDAndAnswerIdOrderByAnswerId(mainId, curQuesNo, answerId)).orElseGet(ArrayList::new)
 				.stream().filter(e->!StringUtils.isEmpty(e.getForwardId())).findFirst();
 						
 			if(optionalVal.isPresent()) {

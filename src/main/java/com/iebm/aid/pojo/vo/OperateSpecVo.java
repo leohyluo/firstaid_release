@@ -2,7 +2,9 @@ package com.iebm.aid.pojo.vo;
 
 import org.springframework.beans.BeanUtils;
 
+import com.iebm.aid.common.GlobalConstants;
 import com.iebm.aid.pojo.OperateSpec;
+import com.iebm.aid.utils.EBMEnDecrypt;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -79,6 +81,7 @@ public class OperateSpecVo {
 	}
 
 	public String getOverview() {
+		overview = EBMEnDecrypt.decrypt(overview, GlobalConstants.DECRYPT_CHARSET);
 		return overview;
 	}
 
@@ -87,6 +90,7 @@ public class OperateSpecVo {
 	}
 
 	public String getIndication() {
+		indication = EBMEnDecrypt.decrypt(indication, GlobalConstants.DECRYPT_CHARSET);
 		return indication;
 	}
 
@@ -95,6 +99,7 @@ public class OperateSpecVo {
 	}
 
 	public String getContraindications() {
+		contraindications = EBMEnDecrypt.decrypt(contraindications, GlobalConstants.DECRYPT_CHARSET);
 		return contraindications;
 	}
 
@@ -103,6 +108,7 @@ public class OperateSpecVo {
 	}
 
 	public String getOperationPlan() {
+		operationPlan = EBMEnDecrypt.decrypt(operationPlan, GlobalConstants.DECRYPT_CHARSET);
 		return operationPlan;
 	}
 
@@ -111,6 +117,7 @@ public class OperateSpecVo {
 	}
 
 	public String getOperationMethod() {
+		operationMethod = EBMEnDecrypt.decrypt(operationMethod, GlobalConstants.DECRYPT_CHARSET);
 		return operationMethod;
 	}
 
@@ -119,6 +126,7 @@ public class OperateSpecVo {
 	}
 
 	public String getAnnouncements() {
+		announcements = EBMEnDecrypt.decrypt(announcements, GlobalConstants.DECRYPT_CHARSET);
 		return announcements;
 	}
 
@@ -127,6 +135,7 @@ public class OperateSpecVo {
 	}
 
 	public String getSyndrome() {
+		syndrome = EBMEnDecrypt.decrypt(syndrome, GlobalConstants.DECRYPT_CHARSET);
 		return syndrome;
 	}
 

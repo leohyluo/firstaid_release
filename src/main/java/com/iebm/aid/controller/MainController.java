@@ -1,6 +1,7 @@
 package com.iebm.aid.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
@@ -22,6 +23,7 @@ import com.iebm.aid.pojo.MainSymptom;
 import com.iebm.aid.pojo.Mpds;
 import com.iebm.aid.pojo.req.BasicKeyQ;
 import com.iebm.aid.pojo.vo.KeyQVo;
+import com.iebm.aid.pojo.vo.MainSymptomVo;
 import com.iebm.aid.pojo.vo.PlanVo;
 import com.iebm.aid.pojo.vo.ResponseMessageVo;
 import com.iebm.aid.pojo.vo.ResponseMessageVo2;
@@ -71,8 +73,9 @@ public class MainController {
 	})
 	@PostMapping(value = "/findAllMainSymptom")
 	public ResponseMessage findAllMainSymptom() {
-		List<MainSymptom> list = mainSymptomService.findAll();
-		return WebUtils.buildSuccessResponseMessage(list);
+		List<MainSymptom> mainSymptomList = mainSymptomService.findAll();
+		List<MainSymptomVo> voList = mainSymptomList.stream().map(MainSymptomVo::new).collect(Collectors.toList());
+		return WebUtils.buildSuccessResponseMessage(voList);
 	}
 	
 	@ApiOperation(value = "获取第一个问题", notes = "获取第一个问题", produces = "application/json")

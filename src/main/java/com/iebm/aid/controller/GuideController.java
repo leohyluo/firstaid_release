@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iebm.aid.controller.req.SearchGuideParam;
-import com.iebm.aid.pojo.Guide;
+import com.iebm.aid.pojo.vo.GuideVo;
 import com.iebm.aid.service.GuideService;
 import com.iebm.aid.web.ResponseMessage;
 import com.iebm.aid.web.WebUtils;
@@ -57,7 +57,7 @@ public class GuideController {
 	@PostMapping(value = "/findByDir3")
 	public ResponseMessage findByDir3(@RequestBody SearchGuideParam param) {
 		String dir3 = param.getDir3();
-		List<Guide> guideList = guideService.findByDir3(dir3);
+		List<GuideVo> guideList = guideService.findByDir3(dir3);
 		return WebUtils.buildSuccessResponseMessage(guideList);
 	}
 }

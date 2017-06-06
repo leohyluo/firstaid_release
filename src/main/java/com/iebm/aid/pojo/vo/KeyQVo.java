@@ -2,7 +2,9 @@ package com.iebm.aid.pojo.vo;
 
 import org.springframework.beans.BeanUtils;
 
+import com.iebm.aid.common.GlobalConstants;
 import com.iebm.aid.pojo.KeyQ;
+import com.iebm.aid.utils.EBMEnDecrypt;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -33,12 +35,14 @@ public class KeyQVo {
 	}
 	
 	public String getKqTitle() {
+		kqTitle = EBMEnDecrypt.decrypt(kqTitle, GlobalConstants.DECRYPT_CHARSET);
 		return kqTitle;
 	}
 	public void setKqTitle(String kqTitle) {
 		this.kqTitle = kqTitle;
 	}
 	public String getAnswer() {
+		answer = EBMEnDecrypt.decrypt(answer, GlobalConstants.DECRYPT_CHARSET);
 		return answer;
 	}
 	public void setAnswer(String answer) {

@@ -52,7 +52,7 @@ public class PlanServiceImpl extends AbstractService<Plan, Long> implements Plan
 	}
 	
 	@Override
-	@Cacheable(value = "remote", key="'PlanServiceImpl.queryGravePlan'")
+	//@Cacheable(value = "remote", key="'PlanServiceImpl.queryGravePlan'")
 	public List<PlanVo> queryGravePlan() {
 		List<String> planIds = Plan.GRAVE_PLANS;
 		return repository.findByPlanIdIn(planIds).stream().map(PlanVo::new).collect(Collectors.toList());

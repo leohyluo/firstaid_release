@@ -51,7 +51,7 @@ public class DrugServiceImpl extends AbstractService<Drug, Long> implements Drug
 	@Override
 	@Cacheable(value="remote", key="'drugServiceImpl.findByType0.'+#type")
 	public List<String> findByType0(String type) {
-		return Optional.of(repository.findByType0(type)).orElseGet(ArrayList::new).stream().map(e->e.getName())
+		return Optional.ofNullable(repository.findByType0(type)).orElseGet(ArrayList::new).stream().map(e->e.getName())
 				.collect(Collectors.toList());
 	}
 

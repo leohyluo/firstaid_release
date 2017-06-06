@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.iebm.aid.common.BaseService;
 import com.iebm.aid.pojo.Guide;
+import com.iebm.aid.pojo.vo.GuideVo;
 
 public interface GuideService extends BaseService<Guide, Long> {
 
@@ -11,5 +12,5 @@ public interface GuideService extends BaseService<Guide, Long> {
 	
 	List<String> findDir3();
 	
-	List<Guide> findByDir3(String dir3);
+	List<GuideVo> findByDir3(String dir3);
 }

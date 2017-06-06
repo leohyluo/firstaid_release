@@ -14,6 +14,7 @@ import com.iebm.aid.controller.req.DrugParam1;
 import com.iebm.aid.controller.req.DrugParam3;
 import com.iebm.aid.controller.req.DrugParam2;
 import com.iebm.aid.pojo.Drug;
+import com.iebm.aid.pojo.vo.DrugVo;
 import com.iebm.aid.service.DrugService;
 import com.iebm.aid.web.ResponseMessage;
 import com.iebm.aid.web.WebUtils;
@@ -87,6 +88,7 @@ public class DrugController {
 	public ResponseMessage getDetail(@RequestBody DrugParam2 param){
 		String drugName = param.getDrugName();
 		Drug drug = drugService.findByName(drugName);
-		return WebUtils.buildSuccessResponseMessage(drug);
+		DrugVo vo = new DrugVo(drug);
+		return WebUtils.buildSuccessResponseMessage(vo);
 	}
 }

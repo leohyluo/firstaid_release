@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.iebm.aid.common.AbstractService;
@@ -37,7 +36,7 @@ public class OperateSpecServiceImpl extends AbstractService<OperateSpec, Long> i
 	}
 	
 	@Override
-	@Cacheable(value = "remote", key="'operateSpecServiceImpl.groupByDir2'")
+	//@Cacheable(value = "remote", key="'operateSpecServiceImpl.groupByDir2'")
 	public List<String> groupByDir2() {
 		return repository.groupByDir2();
 	}

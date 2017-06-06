@@ -16,6 +16,7 @@ import com.iebm.aid.controller.req.SpecDiseaseParam2;
 import com.iebm.aid.pojo.SpecDisease;
 import com.iebm.aid.pojo.SysDisease;
 import com.iebm.aid.pojo.vo.SpecDiseaseVo;
+import com.iebm.aid.pojo.vo.SpecDiseaseVo2;
 import com.iebm.aid.service.SpecDiseaseService;
 import com.iebm.aid.service.SysDiseaseService;
 import com.iebm.aid.utils.StringUtils;
@@ -100,6 +101,7 @@ public class SpecDiseaseController {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
 		}
 		SpecDisease spec = specDiseaseService.get(Long.valueOf(disId));
-		return WebUtils.buildSuccessResponseMessage(spec);
+		SpecDiseaseVo2 vo2 = new SpecDiseaseVo2(spec);
+		return WebUtils.buildSuccessResponseMessage(vo2);
 	}
 }

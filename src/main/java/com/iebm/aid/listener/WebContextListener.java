@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 import com.iebm.aid.common.DataPool;
 import com.iebm.aid.pojo.KeyQ;
@@ -21,6 +22,8 @@ import com.iebm.aid.repository.KeyQUseRepository;
 import com.iebm.aid.repository.KqplanLinkRepository;
 import com.iebm.aid.repository.PlanRepository;
 import com.iebm.aid.utils.JpaHelper;
+import com.iebm.aid.utils.NetUtils;
+import com.iebm.aid.utils.StringUtils;
 
 
 @WebListener
@@ -36,6 +39,8 @@ public class WebContextListener implements ServletContextListener {
 	private PlanRepository planRepository;
 	@Resource
 	private EntityManager entityManager;
+	@Value("${local.hostname.mac}")
+	private String localMac;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -47,9 +52,8 @@ public class WebContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		
-		
 		logger.info("webContextListener contextInitialized starting...");
+		installCheck();
 		initEntityManager();
 		DataPool.init();
 		loadKeyQ();
@@ -57,6 +61,25 @@ public class WebContextListener implements ServletContextListener {
 		loadKqplanLink();
 		loadPlan();
 		logger.info("webContextListener contextInitialized completed");
+	}
+	
+	private void installCheck() {
+		try {
+			//String localMac = "PC-20160606PUVI/B0-D5-9D-7E-C6-01A";
+			if(StringUtils.isEmpty(localMac)) {
+				return;
+			}
+			List<String> macList = NetUtils.getLocalMac();
+			boolean match = macList.stream().anyMatch(e->e.equalsIgnoreCase(localMac));
+			if(match) {
+				logger.info("install check success, application starting...");				
+			} else {
+				logger.info("install check failed, application stop.");
+				System.exit(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void initEntityManager() {
