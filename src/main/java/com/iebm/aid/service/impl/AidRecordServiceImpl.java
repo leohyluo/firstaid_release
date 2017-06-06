@@ -133,7 +133,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 			sortObj = new Sort(new Order(param.getOrder().toUpperCase().equals("ASC") ? Direction.ASC : Direction.DESC, param.getSort())).and(new Sort(
 					new Order(Direction.ASC, "id")));
 		} else {
-			sortObj = new Sort(new Order(Direction.ASC, "id"));
+			sortObj = new Sort(new Order(Direction.DESC, "createTime"));
 		}
 		
 		
