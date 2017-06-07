@@ -64,7 +64,8 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 		sb.append(" a.aid_mobile AS c_aidMobile, ");//29
 		sb.append(" a.what_happen AS c_whatHappen, ");//30
 		sb.append(" a.cure_process AS c_cureProcess, ");//31
-		sb.append(" a.plan_ids AS c_planIds ");//32
+		sb.append(" a.plan_ids AS c_planIds, ");//32
+		sb.append(" a.call_type AS c_callType ");//33
 		sb.append(" FROM ");
 		sb.append(" table_record a, ");
 		sb.append(" table_aid_files b ");
@@ -123,6 +124,7 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 				});
 				callRecord.setPlans(planResult.stream().map(PlanVo::new).collect(Collectors.toList()));
 			}
+			callRecord.setCallType(StringUtils.toString(arr[33]));
 			
 			AidRecordDetailVo vo = new AidRecordDetailVo(patientInfo, emengencyRecord, callRecord);
 			return vo;

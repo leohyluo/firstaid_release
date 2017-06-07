@@ -70,6 +70,9 @@ public class AidRecord extends BaseEntity {
 	//是否有呼吸
 	@Column(name = "has_breath")
 	private String hasBreath;
+	
+	@Column(name = "call_type")
+	private String callType;
 
 
 	public Long getId() {
@@ -190,6 +193,14 @@ public class AidRecord extends BaseEntity {
 
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getCallType() {
+		return callType;
+	}
+
+	public void setCallType(String callType) {
+		this.callType = callType;
 	}
 	
 	

@@ -213,19 +213,63 @@ public class BasicInfoReq {
 	public AidRecord parseToAidRecord() {
 		AidRecord record = new AidRecord();
 		
-		record.setAidAddress(this.getAidAddress());
-		record.setAidMobile(this.getAidMobile());
-		record.setWhatHappen(this.getWhatHappen());
+		record.setAidAddress(StringUtils.string(this.getAidAddress()));
+		record.setAidMobile(StringUtils.string(this.getAidMobile()));
+		record.setWhatHappen(StringUtils.string(this.getWhatHappen()));
 		if(StringUtils.isNotEmpty(this.getStayWithPatient())) {
-			record.setWithPatient("0".equals(this.getStayWithPatient()) ? "否" : "是");
+			String withPatientStr = "";
+			if("1".equals(this.getStayWithPatient())) {
+				withPatientStr = "是";
+			} else if ("2".equals(this.getStayWithPatient())) {
+				withPatientStr = "否";
+			}
+			record.setWithPatient(withPatientStr);
+		}
+		if(StringUtils.isNotEmpty(this.getCallType())) {
+			String callTypeStr = "";
+			if("1".equals(this.getCallType())) {
+				callTypeStr = "自己呼救";
+			} else if ("2".equals(this.getCallType())) {
+				callTypeStr = "熟人帮助呼救";
+			} else if ("3".equals(this.getCallType())) {
+				callTypeStr = "陌生人帮助呼救";
+			}
+			record.setCallType(callTypeStr);
 		}
 		record.setName(this.getName());
 		record.setAge(this.getAge());
 		if(StringUtils.isNotEmpty(this.getHasAware())) {
-			record.setHasAware("0".equals(this.getHasAware()) ? "否" : "是");
+			String awareStr = "";
+			if("1".equals(this.getHasAware())) {
+				awareStr = "有意识";
+			} else if ("2".equals(this.getHasAware())) {
+				awareStr = "无意识";
+			} else if ("3".equals(this.getHasAware())) {
+				awareStr = "不详";
+			}
+			record.setHasAware(awareStr);
+		}
+		if(StringUtils.isNotEmpty(this.getGender())) {
+			String genderStr = "";
+			if("1".equals(this.getGender())) {
+				genderStr = "男";
+			} else if ("2".equals(this.getGender())) {
+				genderStr = "女";
+			} else if ("3".equals(this.getGender())) {
+				genderStr = "不详";
+			}
+			record.setGender(genderStr);
 		}
 		if(StringUtils.isNotEmpty(this.getHasBreath())) {
-			record.setHasBreath("0".equals(this.getHasBreath()) ? "否" : "是");
+			String breathStr = "";
+			if("1".equals(this.getHasBreath())) {
+				breathStr = "有呼吸";
+			} else if ("2".equals(this.getHasBreath())) {
+				breathStr = "无呼吸";
+			} else if ("3".equals(this.getHasBreath())) {
+				breathStr = "不详";
+			}
+			record.setHasBreath(breathStr);
 		}
 
 		return record;
