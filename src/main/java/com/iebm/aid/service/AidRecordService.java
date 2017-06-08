@@ -11,6 +11,7 @@ import com.iebm.aid.pojo.AidRecord;
 import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
 import com.iebm.aid.pojo.vo.PlanVo;
+import com.iebm.aid.pojo.vo.TokenVo;
 
 public interface AidRecordService extends BaseService<AidRecord, Long> {
 
@@ -24,7 +25,7 @@ public interface AidRecordService extends BaseService<AidRecord, Long> {
 	 * 保存诊断记录
 	 * @param aidRecord
 	 */
-	void saveAidRecord(String serverId, List<PlanVo> planvoList);
+	void saveAidRecord(String serverId, List<PlanVo> planvoList, TokenVo tokenVo);
 	
 	/**
 	 * 搜索急救记录
@@ -40,5 +41,5 @@ public interface AidRecordService extends BaseService<AidRecord, Long> {
 	 */
 	AidRecordDetailVo getDetail(String id);
 	
-	Page<AidRecordVo> findByPage(SearchAidFilesParam param);
+	Page<AidRecordVo> findByPage(SearchAidFilesParam param, String userId);
 }

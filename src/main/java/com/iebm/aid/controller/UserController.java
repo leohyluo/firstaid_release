@@ -1,5 +1,7 @@
 package com.iebm.aid.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +19,7 @@ import com.iebm.aid.pojo.vo.TokenVo;
 import com.iebm.aid.service.EventRecordService;
 import com.iebm.aid.service.UserService;
 import com.iebm.aid.service.UserTokenService;
+import com.iebm.aid.utils.CollectionUtils;
 import com.iebm.aid.utils.StringUtils;
 import com.iebm.aid.utils.VerifyUtils;
 import com.iebm.aid.web.ResponseMessage;
@@ -45,12 +48,17 @@ public class UserController {
 	public ResponseMessage login(@RequestBody LoginParam loginParam) {
 		String userName = loginParam.getUserName();
 		String password = loginParam.getPassword();
+		
 		if(StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.REQUIRED_PARAMETER_MISSING);
 		}
-		User user = userService.findByPassword(userName, password);
-		if(user == null) {
+		List<User> userList = userService.findByUserName(userName);
+		if(CollectionUtils.isEmpty(userList)) {
 			return WebUtils.buildResponseMessage(ResponseStatus.USER_NOT_FOUND);
+		}
+		User user = userList.get(0);
+		if(!password.equals(user.getPassword())) {
+			return WebUtils.buildResponseMessage(ResponseStatus.USER_PASSWORD_INCORRECT);
 		}
 		UserToken token = userTokenService.create(user);		
 		ResponseMessage responseMessage = WebUtils.buildSuccessResponseMessage(token);

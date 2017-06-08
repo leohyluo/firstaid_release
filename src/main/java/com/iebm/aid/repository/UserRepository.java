@@ -14,4 +14,6 @@ public interface UserRepository extends BaseRepository<User, Long> {
 	List<User> findByUserNameAndHospitalCode(String userName, String hospitalCode);
 	
 	List<User> findByUserNameAndPassword(String userName, String password);
+	
+	List<User> findByUserName(String userName);
 }

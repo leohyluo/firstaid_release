@@ -52,6 +52,7 @@ com\iebm\aid\service\impl\SubstationServiceImpl.class
 com\iebm\aid\pojo\Drug.class
 com\iebm\aid\service\impl\SpecDiseaseServiceImpl.class
 com\iebm\aid\service\OperateSpecService.class
+com\iebm\aid\controller\TestController.class
 com\iebm\aid\utils\CollectionUtils$EnumerationIterator.class
 com\iebm\aid\controller\req\QueryRecordParam.class
 com\iebm\aid\controller\MainSymptomController.class

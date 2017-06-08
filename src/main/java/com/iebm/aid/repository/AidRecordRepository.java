@@ -53,7 +53,7 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 		sb.append(" b.principle AS b_principle, ");	//19
 		sb.append(" b.signature AS b_signature, ");	//20
 		
-		sb.append(" b.main_symp AS c_mainSymptom, ");//21
+		sb.append(" a.main_symp AS c_mainSymptom, ");//21
 		sb.append(" a.with_patient AS c_withPatient, ");//22
 		sb.append(" a.`name` AS c_name, ");			//23
 		sb.append(" a.age AS c_age, ");				//24
@@ -65,7 +65,8 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 		sb.append(" a.what_happen AS c_whatHappen, ");//30
 		sb.append(" a.cure_process AS c_cureProcess, ");//31
 		sb.append(" a.plan_ids AS c_planIds, ");//32
-		sb.append(" a.call_type AS c_callType ");//33
+		sb.append(" a.call_type AS c_callType, ");//33
+		sb.append(" a.create_time AS c_createTime ");//34
 		sb.append(" FROM ");
 		sb.append(" table_record a, ");
 		sb.append(" table_aid_files b ");
@@ -125,6 +126,7 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 				callRecord.setPlans(planResult.stream().map(PlanVo::new).collect(Collectors.toList()));
 			}
 			callRecord.setCallType(StringUtils.toString(arr[33]));
+			callRecord.setCreateTime(StringUtils.toString(arr[34]));
 			
 			AidRecordDetailVo vo = new AidRecordDetailVo(patientInfo, emengencyRecord, callRecord);
 			return vo;

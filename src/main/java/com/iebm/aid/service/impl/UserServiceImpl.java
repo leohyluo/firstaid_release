@@ -38,11 +38,18 @@ public class UserServiceImpl extends AbstractService<User, Long> implements User
 		}
 		return user;
 	}
+
+	@Override
+	public List<User> findByUserName(String username) {
+		List<User> userList = repository.findByUserName(username);
+		return userList;
+	}
 	
 	@Override
 	protected BaseRepository<User, Long> getRepository() {
 		return repository;
 	}
+
 
 
 }

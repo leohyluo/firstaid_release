@@ -59,6 +59,9 @@ public class CallRecord {
 	
 	@ApiModelProperty("诊断过程")
 	private String cureProcess;
+	
+	@ApiModelProperty("呼叫时间")
+	private String createTime;
 
 	public String getMainSymptom() {
 		return mainSymptom;
@@ -170,6 +173,14 @@ public class CallRecord {
 
 	public void setPlans(List<PlanVo> plans) {
 		this.plans = plans;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 	
 	

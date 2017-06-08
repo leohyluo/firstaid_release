@@ -20,7 +20,7 @@ public enum ResponseStatus {
 	/**
 	 * 用户不存在 30002, "User not found"
 	 */
-	USER_NOT_FOUND(202, "用户不存在"),
+	USER_NOT_FOUND(202, "用户名不存在"),
 	/**
 	 * 无效的签名
 	 */
@@ -28,7 +28,7 @@ public enum ResponseStatus {
 	/**
 	 * 用户密码不匹配 30003, "Incorrect password"
 	 */
-	USER_PASSWORD_INCORRECT(204, "密码有误"),
+	USER_PASSWORD_INCORRECT(204, "密码错误"),
 	/**
 	 * 缺少必要参数 30001, "Required parameter missing"
 	 */
@@ -48,7 +48,7 @@ public enum ResponseStatus {
 	/**
 	 * token不存在
 	 */
-	ACCESS_TOKEN_NOT_EXISTS(210, "token不存在"),
+	ACCESS_TOKEN_NOT_EXISTS(210, "您的账号已在其他设备登录"),
 	
 	/**
 	 * 服务器异常 44444, "Exception"

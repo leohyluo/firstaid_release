@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import com.iebm.aid.pojo.vo.MainSymptomVo;
 import com.iebm.aid.pojo.vo.PlanVo;
 import com.iebm.aid.pojo.vo.ResponseMessageVo;
 import com.iebm.aid.pojo.vo.ResponseMessageVo2;
+import com.iebm.aid.pojo.vo.TokenVo;
 import com.iebm.aid.service.AidRecordService;
 import com.iebm.aid.service.CacheKeyQService;
 import com.iebm.aid.service.KeyQService;
@@ -97,7 +99,7 @@ public class MainController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/searchQues")
-	public ResponseMessageVo2 searchQues(@RequestBody KeyQParam param) {
+	public ResponseMessageVo2 searchQues(@RequestBody KeyQParam param, HttpServletRequest request) {
 		logger.info("searchQues params is :" + JsonUtils.toJsonString(param));
 		String type = "1";
 		List<KeyQVo> keyqList = keyQService.searchKeyQ(param);
@@ -111,7 +113,8 @@ public class MainController {
 			//CacheKeyQ cacheKeyq = cacheKeyQService.findByServerId(serverId);
 			mpds = mpdsService.findMpdsGrade(cacheKeyq);
 			//保存诊断记录
-			aidRecordService.saveAidRecord(serverId, planList);
+			TokenVo tokenVo = (TokenVo) request.getAttribute("tokenVo");
+			aidRecordService.saveAidRecord(serverId, planList, tokenVo);
 			//cacheKeyQService.delete(cacheKeyq);
 		}
 		

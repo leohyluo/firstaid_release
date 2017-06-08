@@ -3,6 +3,7 @@ package com.iebm.aid.controller;
 import java.time.LocalDateTime;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import com.iebm.aid.controller.req.SearchRecordDetailParam;
 import com.iebm.aid.pojo.AidFiles;
 import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
+import com.iebm.aid.pojo.vo.TokenVo;
 import com.iebm.aid.service.AidFilesService;
 import com.iebm.aid.service.AidRecordService;
 import com.iebm.aid.utils.StringUtils;
@@ -56,8 +58,9 @@ public class AidFilesController {
 		@ApiImplicitParam(name = "token", value = "客户端token", required = true, dataType = "String", paramType = "header")
 	})
 	@PostMapping(value = "/search")
-	public ResponseMessage search(@RequestBody SearchAidFilesParam param) {
-		Page<AidRecordVo> page = aidRecordService.findByPage(param);
+	public ResponseMessage search(@RequestBody SearchAidFilesParam param, HttpServletRequest request) {
+		TokenVo tokenVo = (TokenVo) request.getAttribute("tokenVo");		
+		Page<AidRecordVo> page = aidRecordService.findByPage(param, tokenVo.getUserId());
 		return WebUtils.buildSuccessResponseMessage(page);
 	}
 	

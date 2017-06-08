@@ -74,6 +74,8 @@ public class AidRecord extends BaseEntity {
 	@Column(name = "call_type")
 	private String callType;
 
+	@Column(name = "creator")
+	private String creator;
 
 	public Long getId() {
 		return id;
@@ -201,6 +203,14 @@ public class AidRecord extends BaseEntity {
 
 	public void setCallType(String callType) {
 		this.callType = callType;
+	}
+
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
 	}
 	
 	

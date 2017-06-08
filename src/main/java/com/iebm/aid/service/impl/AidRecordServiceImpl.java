@@ -41,6 +41,7 @@ import com.iebm.aid.pojo.MainSymptom;
 import com.iebm.aid.pojo.vo.AidRecordDetailVo;
 import com.iebm.aid.pojo.vo.AidRecordVo;
 import com.iebm.aid.pojo.vo.PlanVo;
+import com.iebm.aid.pojo.vo.TokenVo;
 import com.iebm.aid.repository.AidRecordRepository;
 import com.iebm.aid.service.AidFilesService;
 import com.iebm.aid.service.AidRecordService;
@@ -79,7 +80,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 	
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void saveAidRecord(String serverId, List<PlanVo> planvoList) {
+	public void saveAidRecord(String serverId, List<PlanVo> planvoList, TokenVo tokenVo) {
 		BasicInfoReq basicInfo = DataPool.take(serverId, BasicInfoReq.class);
 		if(basicInfo == null) {
 			return;
@@ -104,6 +105,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 		aidRecord.setCureProcess(cureProcess);
 		aidRecord.setPlanIds(joiner.toString());
 		aidRecord.setCreateTime(LocalDateTime.now());
+		aidRecord.setCreator(tokenVo.getUserId());
 		save(aidRecord);
 	}
 
@@ -127,7 +129,7 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 	}
 	
 	@Override
-	public Page<AidRecordVo> findByPage(SearchAidFilesParam param) {
+	public Page<AidRecordVo> findByPage(SearchAidFilesParam param, String userId) {
 		Sort sortObj;
 		if (StringUtils.isNotEmpty(param.getOrder()) && !StringUtils.isNotEmpty(param.getSort())) {
 			sortObj = new Sort(new Order(param.getOrder().toUpperCase().equals("ASC") ? Direction.ASC : Direction.DESC, param.getSort())).and(new Sort(
@@ -135,7 +137,6 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 		} else {
 			sortObj = new Sort(new Order(Direction.DESC, "createTime"));
 		}
-		
 		
 		
 		Pageable pageable = new PageRequest(param.getPage(), param.getRows(), sortObj);
@@ -159,6 +160,9 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 				}
 				if(startTime != null && endTime != null) {
 					ps.add(cb.between(root.get("createTime"), startTime, endTime));
+				}
+				if(StringUtils.isNotEmpty(userId)) {
+					ps.add(cb.equal(root.get("creator"), userId));
 				}
 				return CollectionUtils.isEmpty(ps) ? null : cb.and(ps.toArray(new Predicate[ps.size()]));
 			}
