@@ -108,6 +108,27 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 		aidRecord.setCreator(tokenVo.getUserId());
 		save(aidRecord);
 	}
+	
+
+	@Override
+	public void saveAidRecord(BasicInfoReq basicInfo, List<PlanVo> planvoList, TokenVo tokenVo) {
+		AidFiles aidFiles = basicInfo.parseToAidFiles();
+		Long filesId = this.saveAidFiles(aidFiles);	//急救档案id
+		
+		StringJoiner joiner = new StringJoiner(",");
+		if(CollectionUtils.isNotEmpty(planvoList)) {
+			planvoList.stream().map(PlanVo::getPlanId).collect(toList()).stream().forEach(e->joiner.add(e));
+		}
+		String mainSymptomText = "危急情况";
+		
+		AidRecord aidRecord = basicInfo.parseToAidRecord();
+		aidRecord.setFilesId(filesId.toString());
+		aidRecord.setMainSymptomText(mainSymptomText);		
+		aidRecord.setPlanIds(joiner.toString());
+		aidRecord.setCreateTime(LocalDateTime.now());
+		aidRecord.setCreator(tokenVo.getUserId());
+		save(aidRecord);
+	}
 
 	@Override
 	public List<AidRecordVo> search(SearchAidFilesParam param) {
@@ -217,5 +238,6 @@ public class AidRecordServiceImpl extends AbstractService<AidRecord, Long> imple
 		}
 		return sb.toString();
 	}
+
 
 }

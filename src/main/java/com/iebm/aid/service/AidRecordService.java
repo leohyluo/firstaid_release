@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.iebm.aid.common.BaseService;
+import com.iebm.aid.controller.req.BasicInfoReq;
 import com.iebm.aid.controller.req.SearchAidFilesParam;
 import com.iebm.aid.pojo.AidFiles;
 import com.iebm.aid.pojo.AidRecord;
@@ -26,6 +27,12 @@ public interface AidRecordService extends BaseService<AidRecord, Long> {
 	 * @param aidRecord
 	 */
 	void saveAidRecord(String serverId, List<PlanVo> planvoList, TokenVo tokenVo);
+	
+	/**
+	 * 保存诊断记录(无呼吸，无意识情况下)
+	 * @param aidRecord
+	 */
+	void saveAidRecord(BasicInfoReq basicInfo, List<PlanVo> planvoList, TokenVo tokenVo);
 	
 	/**
 	 * 搜索急救记录

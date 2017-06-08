@@ -18,6 +18,7 @@ import com.iebm.aid.pojo.vo.EmengencyRecord;
 import com.iebm.aid.pojo.vo.PatientInfo;
 import com.iebm.aid.pojo.vo.PlanVo;
 import com.iebm.aid.utils.CollectionUtils;
+import com.iebm.aid.utils.DateUtils;
 import com.iebm.aid.utils.JpaHelper;
 import com.iebm.aid.utils.StringUtils;
 
@@ -126,7 +127,7 @@ public interface AidRecordRepository extends BaseRepository<AidRecord, Long> {
 				callRecord.setPlans(planResult.stream().map(PlanVo::new).collect(Collectors.toList()));
 			}
 			callRecord.setCallType(StringUtils.toString(arr[33]));
-			callRecord.setCreateTime(StringUtils.toString(arr[34]));
+			callRecord.setCreateTime(DateUtils.getDateStr(StringUtils.toString(arr[34])));
 			
 			AidRecordDetailVo vo = new AidRecordDetailVo(patientInfo, emengencyRecord, callRecord);
 			return vo;

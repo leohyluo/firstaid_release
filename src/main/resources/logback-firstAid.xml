@@ -3,6 +3,8 @@
 
 	<!-- 文件输出格式 -->
 	<property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
+	<!-- 开发环境 -->
+	<property name="DEV2_FILE_PATH" value="C:/opt/firstAid/logs" />
 	<!-- test文件路径 -->
 	<property name="TEST_FILE_PATH" value="/data/tomcat/aid/logs" />
 	<!-- pro文件路径 -->
@@ -20,6 +22,29 @@
 
 		<root level="info">
 			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	
+	<!-- 开发环境2 -->
+	<springProfile name="dev2">
+		<!-- 每天产生一个文件 -->
+		<appender name="DEV2-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<!-- 文件路径 -->
+			<file>${DEV2_FILE_PATH}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<!-- 文件名称 -->
+				<fileNamePattern>${DEV2_FILE_PATH}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+				<!-- 文件最大保存历史数量 -->
+				<MaxHistory>100</MaxHistory>
+			</rollingPolicy>
+			
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${PATTERN}</pattern>
+			</layout>
+		</appender>
+		
+		<root level="info">
+			<appender-ref ref="DEV2-FILE" />
 		</root>
 	</springProfile>
 

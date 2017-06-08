@@ -18,6 +18,9 @@ public class KeyQVo {
 	@ApiModelProperty("问题内容")
 	private String kqTitle;
 	
+	@ApiModelProperty("问题解释")
+	private String commExplain;
+	
 	@ApiModelProperty("答案内容")
 	private String answer;
 	
@@ -76,6 +79,15 @@ public class KeyQVo {
 
 	public void setForwardId(String forwardId) {
 		this.forwardId = forwardId;
+	}
+
+	public String getCommExplain() {
+		commExplain = EBMEnDecrypt.decrypt(commExplain, GlobalConstants.DECRYPT_CHARSET);
+		return commExplain;
+	}
+
+	public void setCommExplain(String commExplain) {
+		this.commExplain = commExplain;
 	}
 	
 }

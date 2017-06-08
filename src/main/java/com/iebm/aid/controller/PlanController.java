@@ -3,6 +3,7 @@ package com.iebm.aid.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.iebm.aid.controller.req.BasicInfoReq;
 import com.iebm.aid.controller.req.QueryPlanParam;
 import com.iebm.aid.pojo.Plan;
 import com.iebm.aid.pojo.vo.PlanVo;
+import com.iebm.aid.pojo.vo.TokenVo;
+import com.iebm.aid.service.AidRecordService;
 import com.iebm.aid.service.PlanService;
 import com.iebm.aid.web.ResponseMessage;
 import com.iebm.aid.web.WebUtils;
@@ -30,6 +34,8 @@ public class PlanController {
 	
 	@Resource
 	private PlanService planService;
+	@Resource
+	private AidRecordService aidRecordService;
 
 	@ApiIgnore
 	@RequestMapping(value = "/decryptAll")
@@ -51,8 +57,10 @@ public class PlanController {
 		@ApiImplicitParam(name="token", value="客户端token", required = true, dataType="String", paramType="header")
 	})
 	@PostMapping(value = "/queryGravePlan")
-	public ResponseMessage queryGravePlan() {
+	public ResponseMessage queryGravePlan(@RequestBody BasicInfoReq basicInfo, HttpServletRequest request) {
+		TokenVo tokenVo = (TokenVo) request.getAttribute("tokenVo");
 		List<PlanVo> planList = planService.queryGravePlan();
+		aidRecordService.saveAidRecord(basicInfo, planList, tokenVo);
 		return WebUtils.buildSuccessResponseMessage(planList);
 	}
 	
