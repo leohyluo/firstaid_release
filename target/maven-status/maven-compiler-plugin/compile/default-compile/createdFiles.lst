@@ -8,6 +8,7 @@ com\iebm\aid\pojo\vo\AidRecordVo.class
 com\iebm\aid\service\impl\AidRecordServiceImpl.class
 com\iebm\aid\controller\GradeInfoController.class
 com\iebm\aid\service\impl\DrugServiceImpl.class
+com\iebm\aid\utils\PropertiesUtils.class
 com\iebm\aid\filter\CorsFilter.class
 com\iebm\aid\exception\ExceptionCode.class
 com\iebm\aid\common\BaseService.class

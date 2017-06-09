@@ -24,6 +24,7 @@ F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\controller\req\SaveRecordP
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\filter\CorsFilter.java
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\repository\SubStationRepository.java
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\service\OperateSpecService.java
+F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\utils\PropertiesUtils.java
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\utils\PinyinUtils.java
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\controller\req\BasicInfoReq.java
 F:\iebm\workspace\firstAid\src\main\java\com\iebm\aid\pojo\UserToken.java

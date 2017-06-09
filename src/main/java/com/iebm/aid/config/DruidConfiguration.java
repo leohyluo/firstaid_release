@@ -2,6 +2,7 @@ package com.iebm.aid.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -11,19 +12,46 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.iebm.aid.utils.Encrypt;
 
 @Configuration
 public class DruidConfiguration {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DruidConfiguration.class);
+	
+	@Value("${db.host}")
+	private String ip;
+	
+	@Value("${db.port}")
+	private String port;
+	
+	@Value("${db.name}")
+	private String dbName;
+	
+	@Value("${db.encrypt.flag}")
+	private String encryptFlag;
 
 	@ConditionalOnClass(DruidDataSource.class)
 	@ConditionalOnProperty(name="spring.datasource.type", havingValue="com.alibaba.druid.pool.DruidDataSource", matchIfMissing=true)
-	static class Druid extends DruidConfiguration {
+	class Druid extends DruidConfiguration {
 		
 		@Bean
 		@ConfigurationProperties("spring.datasource.druid")
 		public DruidDataSource dataSource(DataSourceProperties properties) {
+			
+			if("1".equals(encryptFlag)) {
+				properties.setUsername(Encrypt.dCode(properties.getUsername().getBytes()));
+				properties.setPassword(Encrypt.dCode(properties.getPassword().getBytes()));
+				
+				StringBuffer sb = new StringBuffer("jdbc:mysql://");
+				sb.append(Encrypt.dCode(ip.getBytes())).append(":").append(port).append("/")
+				.append(Encrypt.dCode(dbName.getBytes()))
+				.append("?useUnicode=true&characterEncoding=utf8&useOldAliasMetadataBehavior=true");
+				
+				String url = sb.toString();
+				properties.setUrl(url);
+			}
+			
 			DruidDataSource druidDataSource = (DruidDataSource) properties.initializeDataSourceBuilder().type(DruidDataSource.class).build();
 			DatabaseDriver databaseDriver = DatabaseDriver.fromJdbcUrl(properties.determineUrl());
 			String validationQuery = databaseDriver.getValidationQuery();
